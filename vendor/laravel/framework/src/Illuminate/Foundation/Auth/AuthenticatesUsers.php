@@ -160,7 +160,9 @@ trait AuthenticatesUsers
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return \Illuminate\Cvalidate($request, [
+            $this->username() => 'required|string',
+            'password' => 'ontracts\Auth\StatefulGuard
      */
     protected function guard()
     {
