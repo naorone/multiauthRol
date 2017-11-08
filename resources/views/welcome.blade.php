@@ -82,6 +82,13 @@
                     Laravel
                 </div>
 
+                <div style="color: red">
+                <?php
+
+                echo "Nombre de sesion: ". Session::getName(); ?><br/><?php
+                echo "Id Sesion: ". Session::getId();
+                ?>
+                </div><br/>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
