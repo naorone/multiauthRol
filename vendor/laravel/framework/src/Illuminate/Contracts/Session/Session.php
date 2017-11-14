@@ -28,7 +28,7 @@ interface Session
 
     /**
      * Start the session, reading the data from a handler.
-     *
+     *ession
      * @return bool
      */
     public function start();

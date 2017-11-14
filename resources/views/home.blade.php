@@ -18,9 +18,13 @@
                     You are logged in!
 
                     <a href="{{ url('/nuevaVista') }}">Otra vista</a><br/>
+
+
                         <?php
 
-                        echo "Nombre de sesion: ". Session::getName(); ?><br/><?php
+                        print_r(session()->all());?> <br/><?php
+
+                        echo "Nombre de sesion: ". Session::getName(). "<br/>";
                         echo "Id Sesion: ". Session::getId();
                         ?>
 
