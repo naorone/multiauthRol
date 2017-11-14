@@ -45,22 +45,48 @@ class LoginController extends Controller
         return ['email' => $request->{$this->username()}, 'password' => $request->password, 'verified' => 1];
     }
 
-    public function sendFailedLoginResponse(Request $request)
+
+    public function login(Request $request)
     {
-        $errors = [$this->username() => trans('auth.failed')];
+
+        if(Auth::attempt([
+            'email' => $request->email,
+            'password' => $request -> password,
+            'verified' => 1
+        ]))
+        {
+            $user= User::where('email', $request->email)->first();
+            {
+
+                switch ($user->role()) {
+                    case "escritor":
+                        return view('escritor');
+                        break;
+                    case "lector":
+                        return view('lector');
+                        break;
+
+                }
 
 
-        $user =User::where($this->username(), $request->{$this->username()})->first();
+
+            }
+        }else{
+            $errors = [$this->username() => trans('auth.failed')];
 
 
-        if ($user && \Hash::check($request->password, $user->password) && $user->confirmed != 1) {
-            $errors = [$this->username() => trans('auth.verification')];
+            $user =User::where($this->username(), $request->{$this->username()})->first();
+
+
+            if ($user && \Hash::check($request->password, $user->password) && $user->confirmed != 1) {
+                $errors = [$this->username() => trans('auth.verification')];
+            }
+
+
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors($errors);
         }
-
-
-        return redirect()->back()
-            ->withInput($request->only($this->username(), 'remember'))
-            ->withErrors($errors);
     }
 
 
