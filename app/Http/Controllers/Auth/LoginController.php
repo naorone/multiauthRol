@@ -47,48 +47,7 @@ class LoginController extends Controller
     }
 
 
-    public function login(Request $request)
-    {
 
-        if(Auth::attempt([
-            'email' => $request->email,
-            'password' => $request -> password,
-            'verified' => 1
-        ]))
-        {
-            $user= User::where('email', $request->email)->first();
-            {
-
-                switch ($user->role()) {
-                    case "escritor":
-                        return view('escritor');
-                        break;
-                    case "lector":
-                        return view('lector');
-                        break;
-
-                }
-
-
-
-            }
-        }else{
-            $errors = [$this->username() => trans('auth.failed')];
-
-
-            $user =User::where($this->username(), $request->{$this->username()})->first();
-
-
-            if ($user && \Hash::check($request->password, $user->password) && $user->confirmed != 1) {
-                $errors = [$this->username() => trans('auth.verification')];
-            }
-
-
-            return redirect()->back()
-                ->withInput($request->only($this->username(), 'remember'))
-                ->withErrors($errors);
-        }
-    }
 
 
 

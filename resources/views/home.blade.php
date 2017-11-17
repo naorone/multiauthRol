@@ -15,6 +15,15 @@
                         </div>
                     @endif
 
+                    @if(Auth::user()->role()=='escritor')
+
+                        <h1>Acceso para escritores</h1>
+
+                    @elseif(Auth::user()->role()=='lector')
+                        <h1>Acceso para lectores</h1>
+                    @endif
+
+
                     You are logged in!
 
                     <a href="{{ url('/nuevaVista') }}">Otra vista</a><br/>
