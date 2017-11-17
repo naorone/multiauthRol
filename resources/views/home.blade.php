@@ -15,24 +15,33 @@
                         </div>
                     @endif
 
-                    @if(Auth::user()->role()=='escritor')
+                    @switch(Auth::user()->role())
 
-                        <h1>Acceso para escritores</h1>
+                        @case('escritor')
+                            <h1>Acceso para escritores</h1>
+                        @break
 
-                    @elseif(Auth::user()->role()=='lector')
-                        <h1>Acceso para lectores</h1>
-                    @endif
+                        @case('lector')
+                            <h1>Acceso para lectores</h1>
+                        @break
+
+                        @case('role')
+                            <h1>Acceso para usuarios PREMIUM</h1>
+                        @break
+
+                        @case('user')
+                            <h1>Acceso para usuarios</h1>
+                        @break
+
+                    @endswitch
 
 
-                    You are logged in!
+                        You are logged in!
 
                     <a href="{{ url('/nuevaVista') }}">Otra vista</a><br/>
 
 
                         <?php
-
-                        print_r(session()->all());?> <br/><?php
-
                         echo "Nombre de sesion: ". Session::getName(). "<br/>";
                         echo "Id Sesion: ". Session::getId();
                         ?>
